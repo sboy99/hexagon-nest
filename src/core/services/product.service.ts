@@ -1,17 +1,29 @@
-import { Injectable } from '@nestjs/common';
-import { IProductService } from './product.service.interface';
-import { Product } from '../domain/entities';
-import { ProductRepository } from '@app/adapters/repositories';
+import { Inject, Injectable } from '@nestjs/common';
+import { Product } from '@app/core/domain';
+import {
+  ProductRepositoryPort,
+  TProductRepositoryPort,
+  TProductServicePort,
+} from '../ports';
 
 @Injectable()
-export class ProductService implements IProductService<Product> {
-  constructor(private readonly productRepository: ProductRepository) {}
+export class ProductService implements TProductServicePort {
+  constructor(
+    @Inject(ProductRepositoryPort)
+    private readonly productRepository: TProductRepositoryPort,
+  ) {}
 
-  public async create(name: string, price: number): Promise<Product> {
-    return await this.productRepository.create({
-      name,
-      price,
+  create(entity: Partial<Product>): Promise<Product>;
+  create(name: string, price: number): Promise<Product>;
+  create(name: unknown, price?: unknown): Promise<Product> {
+    return this.productRepository.create({
+      name: name as string,
+      price: price as number,
     });
+  }
+
+  count(): Promise<number> {
+    return this.productRepository.count();
   }
 
   public async read(id: string): Promise<Product> {

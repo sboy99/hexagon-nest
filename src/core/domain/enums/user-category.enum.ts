@@ -1,4 +1,4 @@
-export enum UserCategory {
+export enum UserCategoryEnum {
   USER,
   BUIDLER,
   ADMIN,

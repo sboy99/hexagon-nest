@@ -1,15 +1,15 @@
-import { AbstractEntity } from '@app/common/abstracts';
-import { UserCategory } from '../enums';
+import { AbstractEntityWithSlug } from '@app/core/domain';
+import { UserCategoryEnum } from '../enums';
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaTypes } from 'mongoose';
 import { Image, ImageSchema } from './image.entity';
 
-export class User extends AbstractEntity<User> {
+export class User extends AbstractEntityWithSlug<User> {
   @Prop({
     type: [SchemaTypes.String],
-    enum: UserCategory,
+    enum: UserCategoryEnum,
   })
-  category: UserCategory[];
+  category: UserCategoryEnum[];
 
   @Prop({
     type: ImageSchema,

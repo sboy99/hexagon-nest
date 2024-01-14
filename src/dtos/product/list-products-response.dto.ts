@@ -5,7 +5,7 @@ export class ListProductsResponseDto
 {
   name: string;
   price: number;
-  slug?: string;
+  slug: string;
 
   constructor(entity: Product) {
     this.name = entity.name;

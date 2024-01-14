@@ -1,1 +1,2 @@
-export * from './repository.port';
+export * from './inbound';
+export * from './outbound';

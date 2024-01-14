@@ -1,4 +1,4 @@
-import { AbstractEntity } from '@app/common/abstracts';
+import { AbstractEntityWithSlug } from '@app/core/domain';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { SchemaTypes } from 'mongoose';
 
@@ -7,13 +7,7 @@ import { SchemaTypes } from 'mongoose';
   validateBeforeSave: true,
   versionKey: false,
 })
-export class Product extends AbstractEntity<Product> {
-  @Prop({
-    type: SchemaTypes.String,
-    required: true,
-  })
-  name: string;
-
+export class Product extends AbstractEntityWithSlug<Product> {
   @Prop({
     type: SchemaTypes.Number,
     required: true,
